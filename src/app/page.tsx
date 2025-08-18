@@ -35,21 +35,19 @@ export default function Home() {
       if (isAndroid) {
         // Intent para Android
         const intentUrl = `intent://${url.replace(/https?:\/\//, '')}/#Intent;scheme=https;S.browser_fallback_url=${encodeURIComponent(url)};end`;
-
         window.location.href = intentUrl;
-
-        // Fallback si no funciona después de 2 segundos
-        setTimeout(() => {
-          if (document.hasFocus()) {
-            // Si seguimos en la página, el intent falló
-            showManualInstructions();
-          }
-        }, 1000);
-
       } else if (isIOS) {
-        // iOS no soporta intents bien, ir directo a instrucciones
-        showManualInstructions();
+        const safariUrl = `x-web-search://?${encodeURIComponent(url)}`;
+        window.location.href = safariUrl;
       }
+
+      // Fallback si no funciona después de 2 segundos
+      setTimeout(() => {
+        if (document.hasFocus()) {
+          // Si seguimos en la página, el intent falló
+          showManualInstructions();
+        }
+      }, 1000);
 
     } catch (error) {
       console.warn('Intent failed:', error);
