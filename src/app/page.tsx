@@ -37,8 +37,7 @@ export default function Home() {
         const intentUrl = `intent://${url.replace(/https?:\/\//, '')}/#Intent;scheme=https;S.browser_fallback_url=${encodeURIComponent(url)};end`;
         window.location.href = intentUrl;
       } else if (isIOS) {
-        const safariUrl = `x-web-search://?${encodeURIComponent(url)}`;
-        window.location.href = safariUrl;
+        openIOsBlankLink();
       }
 
       // Fallback si no funciona después de 2 segundos
@@ -52,6 +51,26 @@ export default function Home() {
     } catch (error) {
       console.warn('Intent failed:', error);
       showManualInstructions();
+    }
+  }
+
+  const openIOsBlankLink = () => {
+    try {
+      // Crear un <a> temporal con target _blank
+      const link = document.createElement('a');
+      link.href = location.href;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.style.display = 'none';
+
+      // Insertar en el DOM y disparar click simulado
+      document.body.appendChild(link);
+      link.click();
+
+      // Remover el enlace temporal
+      document.body.removeChild(link);
+    } catch (error) {
+      console.warn('Intent failed:', error);
     }
   }
 
