@@ -28,7 +28,7 @@ export default function BrowserInstructionsPage() {
             </svg>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">¡Perfecto!</h1>
-          <p className="text-lg text-green-600 dark:text-green-400 font-medium">Bien, lograste llegar al browser</p>
+          <p className="text-lg text-green-600 dark:text-green-400 font-medium">Estas en el browser real</p>
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-4">
             Ahora podés disfrutar de la experiencia completa del sitio
           </p>

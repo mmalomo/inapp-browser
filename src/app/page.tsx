@@ -13,7 +13,7 @@ export default function Home() {
   const [showInstructions, setShowInstructions] = useState(false)
 
   useLayoutEffect(() => {
-    if (isInAppBrowser()) {
+    if (!isInAppBrowser()) {
       router.push('/real-browser')
     }
   }, [])
