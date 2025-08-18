@@ -37,7 +37,8 @@ export default function Home() {
         const intentUrl = `intent://${url.replace(/https?:\/\//, '')}/#Intent;scheme=https;S.browser_fallback_url=${encodeURIComponent(url)};end`;
         window.location.href = intentUrl;
       } else if (isIOS) {
-        openIOsBlankLink();
+        const safariUrl = `safari-${url}`;
+        window.location.href = safariUrl;
       }
 
       // Fallback si no funciona después de 2 segundos
@@ -69,6 +70,14 @@ export default function Home() {
 
       // Remover el enlace temporal
       document.body.removeChild(link);
+
+      // Fallback: si seguimos en la misma vista después de 1s
+      setTimeout(() => {
+        if (document.hasFocus()) {
+          showManualInstructions();
+        }
+      }, 1000);
+
     } catch (error) {
       console.warn('Intent failed:', error);
     }
